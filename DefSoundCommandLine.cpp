@@ -24,12 +24,6 @@ CCommandLine::CCommandLine()
         throw CError( L"Unexpected count of command line arguments", ERROR_SUCCESS );
 }
 
-// ----------------------------------------------------------------------------
-
-bool CCommandLine::IsTrayMode() const
-{
-    return (m_nNumArgs == 1);
-}
 
 // ----------------------------------------------------------------------------
 

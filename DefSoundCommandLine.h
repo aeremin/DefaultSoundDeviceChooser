@@ -20,8 +20,6 @@ class CCommandLine
 public:
     CCommandLine();
 
-    bool IsTrayMode() const;
-
     struct CArguments
     {
         std::list< size_t > m_DeviceIndexes;
