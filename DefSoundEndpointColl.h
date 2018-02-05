@@ -29,19 +29,16 @@ public:
 
     void Refresh();
 
-    typedef std::vector< CEndpoint > CImpl;
-    const CImpl &Get() const;
+    const std::vector<CEndpoint> &Get() const;
 
-    
     // ERole_enum_count may be used (==CEndpointRole::All)
-
     bool IsDefault(__in size_t nIndex, __in ERole Role) const;
 
     void SetDefault(__in size_t nIndex, __in ERole Role) const;
     INT_PTR SetDefaultNext(__in ERole Role) const;   // -1 == no next
 
 private:
-    std::unique_ptr< const CImpl >  m_pImpl;
+    std::unique_ptr< const std::vector<CEndpoint> >  m_pImpl;
 };
 
 // ----------------------------------------------------------------------------

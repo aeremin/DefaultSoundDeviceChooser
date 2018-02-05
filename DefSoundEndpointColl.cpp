@@ -88,7 +88,7 @@ private:
 
 void EnumerateEndpoints(
     __in const CDeviceEnumeratorPtr &pDeviceEnumerator,
-    __out CEndpointCollection::CImpl &EndpointCollectionImpl
+    __out std::vector<CEndpoint> &EndpointCollectionImpl
 )
 {
     HRESULT Result;
@@ -152,7 +152,7 @@ void EnumerateEndpoints(
 void MarkDefaultAudioEndpoint(
     __in const CDeviceEnumeratorPtr &pDeviceEnumerator,
     __in ::ERole Role,
-    __inout CEndpointCollection::CImpl &EndpointCollectionImpl
+    __inout std::vector<CEndpoint> &EndpointCollectionImpl
 )
 {
     HRESULT Result;
@@ -241,18 +241,18 @@ void CEndpointCollection::Refresh()
     if (S_OK != Result)
         throw CError( L"Create instance of MMDeviceEnumerator failed", Result );
 
-    CEndpointCollection::CImpl Impl;
+    std::vector<CEndpoint> Impl;
     EnumerateEndpoints(pDeviceEnumerator, Impl);
 
     for (const auto &EndpointRole : GetEndpointRoleArray())
         MarkDefaultAudioEndpoint(pDeviceEnumerator, EndpointRole.m_RoleValue, Impl);
 
-    m_pImpl.reset( new CEndpointCollection::CImpl(std::move(Impl)) );
+    m_pImpl.reset( new std::vector<CEndpoint>(std::move(Impl)) );
 }
 
 // ----------------------------------------------------------------------------
 
-const CEndpointCollection::CImpl &CEndpointCollection::Get() const
+const std::vector<CEndpoint> &CEndpointCollection::Get() const
 {
     return *m_pImpl.get();
 }
