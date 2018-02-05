@@ -16,6 +16,7 @@ struct CEndpoint
 {
     std::wstring m_DeviceId;
     std::wstring m_DeviceDesc;
+    std::wstring m_DeviceFriendlyName;
     std::wstring m_DeviceClassIconPath;
     std::array< bool, ERole_enum_count > m_IsDefault;
 };

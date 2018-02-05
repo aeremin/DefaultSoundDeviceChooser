@@ -129,6 +129,13 @@ void EnumerateEndpoints(
         if (DeviceDesc.Get().vt != VT_LPWSTR)
             throw CError( L"Unexpected type of value `PKEY_Device_DeviceDesc'", ERROR_SUCCESS );
 
+        CPropVariant DeviceFriendlyName;
+        Result = pPropertyStore->GetValue(PKEY_Device_FriendlyName, &DeviceFriendlyName.Get());
+        if (S_OK != Result)
+            throw CError(MakeDefaultErrorDescription(L"IPropertyStore::GetValue", L"(PKEY_Device_FriendlyName, ...)"), Result);
+        if (DeviceFriendlyName.Get().vt != VT_LPWSTR)
+            throw CError(L"Unexpected type of value `PKEY_Device_FriendlyName'", ERROR_SUCCESS);
+        
         CPropVariant DeviceClassIconPath;
         Result = pPropertyStore->GetValue(PKEY_DeviceClass_IconPath, &DeviceClassIconPath.Get());
         if (S_OK != Result)
@@ -140,6 +147,7 @@ void EnumerateEndpoints(
 
         Endpoint.m_DeviceId = wszDeviceId;
         Endpoint.m_DeviceDesc = DeviceDesc.Get().pwszVal;
+        Endpoint.m_DeviceFriendlyName = DeviceFriendlyName.Get().pwszVal;
         Endpoint.m_DeviceClassIconPath = DeviceClassIconPath.Get().pwszVal;
 
         for (auto &IsDefault : Endpoint.m_IsDefault)
