@@ -7,6 +7,8 @@
 #include "DefSoundCommandLine.h"
 #include "DefSoundEndpointRole.h"
 
+#include <iostream>
+
 // ----------------------------------------------------------------------------
 
 namespace DefSound {
@@ -33,6 +35,12 @@ bool CCommandLine::Parse(
     __out std::wstring &ErrorMessage
 ) const
 {
+    std::wcout << "Found following audio devices:\n\n";
+    for (const auto& endpoint : EndpointCollection.Get()) {
+        std::wcout << "DeviceId: '" << endpoint.m_DeviceId << "'\n";
+        std::wcout << "DeviceDesc: '" << endpoint.m_DeviceDesc << "'\n";
+        std::wcout << "DeviceFriendlyName: '" << endpoint.m_DeviceFriendlyName << "'\n\n";
+    }
     _ASSERT(m_nNumArgs == 2 || m_nNumArgs == 3);
 
     if (m_nNumArgs == 2)
