@@ -121,7 +121,7 @@ bool CCommandLine::ParseDevices(
             const size_t nEndpointCollectionSize = EndpointCollection.Get().size();
             for (size_t i = 0; i < nEndpointCollectionSize; ++i, ++it)
             {
-                if (it->m_DeviceDesc == Device || it->m_DeviceId == Device)
+                if (it->m_DeviceDesc == Device || it->m_DeviceId == Device || it->m_DeviceFriendlyName == Device)
                 {
                     if (std::find(DeviceIndexes.cbegin(), DeviceIndexes.cend(), i) == DeviceIndexes.cend())
                         DeviceIndexes.push_back( i );
