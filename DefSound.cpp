@@ -94,7 +94,7 @@ int ShowError(const CError &Error)
         }
     }
 
-    ::MessageBox(nullptr, Stream.str().c_str(), g_wszApplicationName, MB_ICONERROR | MB_OK);
+    std::wcerr << Stream.str();
     return (Error.m_nErrorCode != ERROR_SUCCESS) ? Error.m_nErrorCode : ERROR_INTERNAL_ERROR;
 }
 

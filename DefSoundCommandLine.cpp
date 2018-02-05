@@ -20,7 +20,7 @@ CCommandLine::CCommandLine()
     if (!m_ppArgs.get())
         throw CError( MakeDefaultErrorDescription(L"::CommandLineToArgvW") );
 
-    if (!m_nNumArgs)
+    if (m_nNumArgs != 2 && m_nNumArgs != 3)
         throw CError( L"Unexpected count of command line arguments", ERROR_SUCCESS );
 }
 
@@ -33,7 +33,7 @@ bool CCommandLine::Parse(
     __out std::wstring &ErrorMessage
 ) const
 {
-    _ASSERT(m_nNumArgs > 1);
+    _ASSERT(m_nNumArgs == 2 || m_nNumArgs == 3);
 
     if (m_nNumArgs == 2)
     {
@@ -50,12 +50,6 @@ bool CCommandLine::Parse(
             ErrorMessage.clear();
             return false;
         }
-    }
-
-    if (m_nNumArgs > 3)
-    {
-        ErrorMessage = L"Wrong number of command line arguments";
-        return false;
     }
 
     CArguments Arguments;
@@ -80,8 +74,6 @@ bool CCommandLine::ParseDevices(
     __out std::wstring &ErrorMessage
 ) const
 {
-    _ASSERT(m_nNumArgs >= 2);
-
     auto &DeviceIndexes = Arguments.m_DeviceIndexes;
 
     PCWSTR wszDevice = m_ppArgs.get()[1];
